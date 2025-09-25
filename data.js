@@ -5,19 +5,31 @@
             title: "Marriage Harmony",
             description: "A marriage planning app built with React, Bootstrap, Node.js, Express.js, MySQL.",
             stack: "React, Bootstrap, Node.js, Express.js, MySQL",
-            image: "/images/marriage.png", // Replace with actual image path
+            image: "/images/marriage.png",
         },
         {
             title: "Ecommerce Mobile App",
             description: "A fullstack ecommerce application with all the required ecommerce features.",
             stack: "Angular, Bootstrap, Node.js, Express.js, MongoDB",
-            image: "/images/fdhs-ecommerce.jpg", // Replace with actual image path
+            image: "/images/fdhs-ecommerce.jpg",
         },
         {
             title: "Sales Management Mobile App",
             description: "A fullstack sales management application with all the required sales management features.",
             stack: "Angular, Bootstrap, Node.js, Express.js, MongoDB",
-            image: "/images/sales.jpg", // Replace with actual image path
+            image: "/images/sales.jpg",
+        },
+        {
+            title: "AI Powered Study Assistant",
+            description: "An AI-powered study assistant that helps students with personalized learning experiences.",
+            stack: "React, Tailwind CSS, Node.js, Express.js, MongoDB, OpenAI API",
+            image: "/images/LMS.png",
+        },
+        {
+            title: "AI Powered Code Assistant",
+            description: "An AI-powered code assistant that helps developers with code generation and debugging.",
+            stack: "Next.js, Tailwind CSS, Shadi UI, Convex database, Openrouter API",
+            image: "/images/code editor.png",
         }
     ];
 
@@ -36,10 +48,6 @@
           <p class="text-sm mb-4 text-gray-600">${escapeHtml(project.description)}</p>
           <div class="flex flex-wrap gap-2 mb-4">
             ${project.stack.split(', ').map(tech => `<span class="px-2 py-1 bg-green-500 text-white text-xs rounded-full">${escapeHtml(tech)}</span>`).join('')}
-          </div>
-          <div class="flex gap-3 w-full">
-            <a href="#" target="_blank" class="flex-1 text-sm px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded text-center">Visit</a>
-            <a href="${project.image}" download class="flex-1 text-sm px-4 py-2 bg-gray-800 hover:bg-gray-900 text-white rounded text-center">Download</a>
           </div>
         </div>
       </div>
@@ -181,8 +189,36 @@
         },
         {
             id: 3,
+            title: "Fullstack Developer (MEAN, MERN)",
+            type: "Onsite",
+            location: "Mumbai, India",
+            salary: "₹50k - ₹120k / month",
+            short: "Node.js, Express, SQL/NoSQL, Authentication, Deployment.",
+            desc: "An experienced backend developer to build scalable APIs and high-availability systems.",
+            bullets: [
+                "Node.js, Express expertise",
+                "Database design (Postgres/MySQL/MongoDB)",
+                "Testing, CI/CD experience"
+            ]
+        },
+        {
+            id: 4,
             title: "UI/UX Designer",
             type: "Remote",
+            location: "Anywhere, Remote",
+            salary: "₹30k - ₹80k / month",
+            short: "Figma, design systems, prototyping, and user research.",
+            desc: "A creative UI/UX Designer to craft attractive and user-friendly product experiences.",
+            bullets: [
+                "Proficiency in Figma",
+                "Experience with design systems and component libraries",
+                "User testing and prototyping skills"
+            ]
+        },
+        {
+            id: 5,
+            title: "Python Fullstack Developer",
+            type: "Onsite",
             location: "Anywhere, Remote",
             salary: "₹30k - ₹80k / month",
             short: "Figma, design systems, prototyping, and user research.",
