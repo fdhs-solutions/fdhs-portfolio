@@ -149,6 +149,140 @@
         showImageAt(currentIndex);
     }
 
+    // ---------- Careers: demo data + render ----------
+    const jobs = [
+        {
+            id: 1,
+            title: "Frontend Developer",
+            type: "Remote",
+            location: "Pune, India",
+            salary: "₹40k - ₹90k / month",
+            short: "2+ years in React, Angular or Vue; strong skills in Tailwind/SCSS.",
+            desc: "We’re looking for a Frontend Developer to build responsive, accessible, and high-performance interfaces.",
+            bullets: [
+                "Modern JS (ES6+), React/Angular/Vue",
+                "Component design and performance optimization",
+                "Experience integrating with REST APIs"
+            ]
+        },
+        {
+            id: 2,
+            title: "Backend Developer (Node.js)",
+            type: "Onsite",
+            location: "Mumbai, India",
+            salary: "₹50k - ₹120k / month",
+            short: "Node.js, Express, SQL/NoSQL, Authentication, Deployment.",
+            desc: "An experienced backend developer to build scalable APIs and high-availability systems.",
+            bullets: [
+                "Node.js, Express expertise",
+                "Database design (Postgres/MySQL/MongoDB)",
+                "Testing, CI/CD experience"
+            ]
+        },
+        {
+            id: 3,
+            title: "UI/UX Designer",
+            type: "Remote",
+            location: "Anywhere, Remote",
+            salary: "₹30k - ₹80k / month",
+            short: "Figma, design systems, prototyping, and user research.",
+            desc: "A creative UI/UX Designer to craft attractive and user-friendly product experiences.",
+            bullets: [
+                "Proficiency in Figma",
+                "Experience with design systems and component libraries",
+                "User testing and prototyping skills"
+            ]
+        }
+    ];
+
+    function renderCareers(list = jobs) {
+        const grid = document.getElementById('career-grid');
+        grid.innerHTML = '';
+        list.forEach(job => {
+            const card = document.createElement('div');
+            card.className = 'career-card p-6';
+            card.innerHTML = `
+      <div class="flex justify-between items-start">
+        <div>
+          <div class="career-role">${job.title}</div>
+          <div class="career-meta mt-2">${job.short}</div>
+        </div>
+        <div class="text-right">
+          <div class="career-badge ${job.type.toLowerCase() === 'remote' ? 'career-remote' : 'career-onsite'}">
+            ${job.type}
+          </div>
+          <div class="text-sm text-gray-500 mt-2">${job.location}</div>
+          <div class="text-sm font-semibold text-gray-700 mt-1">${job.salary}</div>
+        </div>
+      </div>
+      <div class="mt-4 flex gap-3">
+        <button class="open-job-details px-4 py-2 rounded-full border border-purple-600 text-purple-600 font-semibold" data-id="${job.id}">Details</button>
+        <a href="mailto:fdhssolution@gmail.com?subject=Application for ${encodeURIComponent(job.title)}" class="px-4 py-2 rounded-full bg-purple-600 text-white font-semibold">Apply</a>
+      </div>
+    `;
+            grid.appendChild(card);
+        });
+
+        // attach handlers
+        Array.from(document.getElementsByClassName('open-job-details')).forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = Number(e.currentTarget.getAttribute('data-id'));
+                openJobModal(id);
+            });
+        });
+    }
+
+    function openJobModal(id) {
+        const job = jobs.find(j => j.id === id);
+        if (!job) return;
+        document.getElementById('job-modal-title').innerText = job.title;
+        document.getElementById('job-modal-type').innerText = job.type;
+        document.getElementById('job-modal-location').innerText = job.location;
+        document.getElementById('job-modal-salary').innerText = job.salary;
+        document.getElementById('job-modal-desc').innerText = job.desc;
+        const listEl = document.getElementById('job-modal-list');
+        listEl.innerHTML = '';
+        job.bullets.forEach(b => {
+            const li = document.createElement('li');
+            li.innerText = b;
+            listEl.appendChild(li);
+        });
+
+        // mailto
+        const mailto = document.getElementById('apply-mailto');
+        mailto.href = `mailto:fdhssolution@gmail.com?subject=${encodeURIComponent('Application for ' + job.title)}&body=${encodeURIComponent('Hi team,\n\nI would like to apply for the position of ' + job.title + '.\n\nRegards,\n')}`;
+
+        // fill form hidden inputs
+        document.getElementById('form-subject').value = `Job Application - ${job.title}`;
+        document.getElementById('form-position').value = job.title;
+
+        // show modal
+        document.getElementById('job-modal').classList.remove('hidden');
+    }
+
+    document.getElementById('job-modal-close').addEventListener('click', () => {
+        document.getElementById('job-modal').classList.add('hidden');
+    });
+
+    document.getElementById('job-modal').addEventListener('click', (e) => {
+        // close on backdrop click
+        if (e.target.id === 'job-modal') {
+            document.getElementById('job-modal').classList.add('hidden');
+        }
+    });
+
+    // filters
+    document.getElementById('filter-remote').addEventListener('click', () => {
+        renderCareers(jobs.filter(j => j.type.toLowerCase() === 'remote'));
+    });
+
+    document.getElementById('filter-all').addEventListener('click', () => {
+        renderCareers(jobs);
+    });
+
+    // initial render
+    renderCareers();
+
     // === Scroll and Visibility Handling ===
     document.addEventListener('DOMContentLoaded', () => {
         renderProjects();
